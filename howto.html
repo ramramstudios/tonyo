@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to View TABrite Tablatures — Tony Arcaro</title>
+  <meta name="description" content="Download, install, and use TABrite to view banjo tablature (.bjo) files from Tony Arcaro's tab collection.">
+  <meta name="keywords" content="TABrite, TABwin, banjo tablature, bjo files, download, install">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #faf6ef;
+      --surface:   #ffffff;
+      --surface-2: #f5efe3;
+      --border:    #e0cfa8;
+      --accent:    #b8720a;
+      --accent-dim:#ffeecb;
+      --text:      #1e150a;
+      --text-muted:#6b5a3e;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
+      --radius:    14px;
+      --radius-sm: 8px;
+      --ease:      0.18s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg:        #17100a;
+      --surface:   #221608;
+      --surface-2: #2e1f0d;
+      --border:    #4a3820;
+      --accent:    #e8a040;
+      --accent-dim:#3d2a0a;
+      --text:      #f0e0c0;
+      --text-muted:#a08860;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.35);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.45);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background var(--ease), color var(--ease);
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+    }
+
+    .header-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+
+    .site-branding { flex: 1; min-width: 180px; }
+
+    .site-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem; font-weight: 800;
+      color: var(--accent); line-height: 1.2;
+    }
+
+    .site-tagline {
+      font-size: 0.7rem; color: var(--text-muted);
+      letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 0.6rem; }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.4rem 0.9rem; border-radius: 9999px;
+      border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--text);
+      font-size: 0.78rem; font-weight: 500;
+      text-decoration: none;
+      transition: background var(--ease);
+    }
+    .back-btn:hover { background: var(--surface-2); }
+
+    .theme-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--text);
+      cursor: pointer; font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--ease);
+    }
+    .theme-btn:hover { background: var(--surface-2); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--accent-dim) 0%, var(--bg) 65%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      font-weight: 800; color: var(--accent);
+      line-height: 1.15; margin-bottom: 0.6rem;
+    }
+
+    .hero p { font-size: 0.93rem; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+
+    /* ── MAIN ── */
+    main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem 1.8rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* ── STATUS BADGE ── */
+    .status-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.1rem; flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.25rem 0.7rem; border-radius: 9999px;
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .badge-stable  { background: #dcfce7; color: #15803d; }
+    .badge-free    { background: #dbeafe; color: #1d4ed8; }
+    .badge-windows { background: #ede9fe; color: #6d28d9; }
+    .badge-legacy  { background: #fef9c3; color: #92400e; }
+
+    [data-theme="dark"] .badge-stable  { background: #14532d; color: #86efac; }
+    [data-theme="dark"] .badge-free    { background: #1e3a5f; color: #93c5fd; }
+    [data-theme="dark"] .badge-windows { background: #2e1065; color: #c4b5fd; }
+    [data-theme="dark"] .badge-legacy  { background: #451a03; color: #fcd34d; }
+
+    /* ── DOWNLOAD BUTTONS ── */
+    .dl-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 1.1rem; border-radius: var(--radius-sm);
+      font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: all var(--ease);
+    }
+    .dl-btn-primary {
+      background: var(--accent); color: #fff;
+    }
+    .dl-btn-primary:hover { opacity: 0.83; transform: translateY(-1px); }
+    .dl-btn-secondary {
+      background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+    }
+    .dl-btn-secondary:hover { background: var(--border); }
+
+    /* ── STEPS ── */
+    .steps { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+
+    .step {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      font-size: 0.78rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 0.1rem;
+    }
+
+    .step-body { flex: 1; }
+
+    .step-label {
+      font-weight: 600; font-size: 0.93rem;
+      margin-bottom: 0.2rem; line-height: 1.3;
+    }
+
+    .step-detail { font-size: 0.83rem; color: var(--text-muted); }
+
+    /* ── CALLOUT ── */
+    .callout {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1.1rem; font-size: 0.865rem;
+      margin-top: 1rem;
+    }
+    .callout-warn {
+      background: #fef9c3; border: 1.5px solid #fde047; color: #78350f;
+    }
+    .callout-info {
+      background: #eff6ff; border: 1.5px solid #bfdbfe; color: #1e3a5f;
+    }
+    .callout-tip {
+      background: var(--accent-dim); border: 1.5px solid var(--border); color: var(--text-muted);
+      border-left: 4px solid var(--accent);
+    }
+
+    [data-theme="dark"] .callout-warn {
+      background: #451a03; border-color: #92400e; color: #fcd34d;
+    }
+    [data-theme="dark"] .callout-info {
+      background: #0c1a2e; border-color: #1e3a5f; color: #93c5fd;
+    }
+
+    /* ── ALTERNATIVE TABLE ── */
+    .alt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.85rem; margin-top: 1rem;
+    }
+
+    .alt-card {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1rem;
+    }
+
+    .alt-name {
+      font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;
+    }
+
+    .alt-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+
+    .alt-badges { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+
+    .mini-badge {
+      font-size: 0.62rem; font-weight: 700;
+      padding: 0.15rem 0.45rem; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .mini-free    { background: #dcfce7; color: #15803d; }
+    .mini-paid    { background: #fee2e2; color: #991b1b; }
+    .mini-trial   { background: #fef9c3; color: #92400e; }
+    .mini-win     { background: #ede9fe; color: #6d28d9; }
+    .mini-mac     { background: #dbeafe; color: #1d4ed8; }
+    .mini-linux   { background: #f0fdf4; color: #166534; }
+    .mini-bjo     { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--border); }
+
+    [data-theme="dark"] .mini-free  { background: #14532d; color: #86efac; }
+    [data-theme="dark"] .mini-paid  { background: #450a0a; color: #fca5a5; }
+    [data-theme="dark"] .mini-trial { background: #451a03; color: #fcd34d; }
+    [data-theme="dark"] .mini-win   { background: #2e1065; color: #c4b5fd; }
+    [data-theme="dark"] .mini-mac   { background: #1e3a5f; color: #93c5fd; }
+    [data-theme="dark"] .mini-linux { background: #052e16; color: #86efac; }
+
+    .alt-link {
+      display: inline-block; margin-top: 0.5rem;
+      font-size: 0.78rem; color: var(--accent); font-weight: 500;
+      text-decoration: none;
+    }
+    .alt-link:hover { text-decoration: underline; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none; border-top: 1px solid var(--border); margin: 0.5rem 0 1.25rem;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+    }
+
+    .footer-inner { max-width: 860px; margin: 0 auto; }
+
+    .footer-nav {
+      display: flex; gap: 0.65rem; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 1.1rem;
+    }
+
+    .footer-nav a {
+      padding: 0.48rem 1rem; border-radius: var(--radius-sm);
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; transition: background var(--ease);
+    }
+    .footer-nav a:hover { background: var(--border); }
+
+    .footer-copy { text-align: center; font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 2.5rem 1rem 1.75rem; }
+      .card { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-branding">
+      <div class="site-name">Tablatures by Tony Arcaro</div>
+      <div class="site-tagline">Banjo Tabs &amp; Bluegrass Information</div>
+    </div>
+    <div class="header-actions">
+      <a href="index.html" class="back-btn">← Back to Tabs</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <h1>How to View TABrite Tablatures</h1>
+  <p>Download, install, and open the free TABrite viewer to play and print any .bjo tab file.</p>
+</section>
+
+<main>
+
+  <!-- ── DOWNLOAD SECTION ── -->
+  <section class="card">
+    <h2 class="card-title">⬇ Download TABrite</h2>
+
+    <div class="status-row">
+      <span class="badge badge-stable">● Latest: v4.3</span>
+      <span class="badge badge-free">Free</span>
+      <span class="badge badge-windows">Windows only</span>
+      <span class="badge badge-legacy">No longer updated</span>
+    </div>
+
+    <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:0.5rem;">
+      TABrite 4.3 is the final release of this software. It is completely free and
+      still the standard viewer for <code style="font-size:0.85em; background:var(--surface-2); padding:0.1rem 0.35rem; border-radius:4px;">.bjo</code> files.
+      Download the full installer package from the official Bluegrass Banjo site.
+    </p>
+
+    <div class="callout callout-warn">
+      <span>⚠️</span>
+      <span><strong>Mac users:</strong> The original Mac version (.sit) is not compatible with modern macOS. See the <a href="#alternatives" style="color:inherit; font-weight:600;">modern alternatives</a> below — TablEdit can open .bjo files on both Mac and Windows.</span>
+    </div>
+
+    <div class="dl-group">
+      <a href="http://bluegrassbanjo.org/tabview.zip" class="dl-btn dl-btn-primary">
+        🖥 Download TABrite for PC (.zip)
+      </a>
+      <a href="http://www.bluegrassbanjo.org/tabrite.html" class="dl-btn dl-btn-secondary" target="_blank" rel="noopener">
+        🔗 Official Download Page
+      </a>
+    </div>
+  </section>
+
+  <!-- ── INSTALL SECTION ── -->
+  <section class="card">
+    <h2 class="card-title">🔧 Installation — Windows</h2>
+    <ol class="steps">
+      <li class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-label">Download and unzip</div>
+          <div class="step-detail">Download the ZIP above and extract it. Right-click the ZIP → <em>Extract All</em>, or use 7-Zip / WinRAR.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-label">Run the installer</div>
+          <div class="step-detail">Double-click the installer inside the extracted folder. TABrite will install into <code style="font-size:0.85em; background:var(--surface-2); padding:0.1rem 0.35rem; border-radius:4px;">C:\Program Files\TABwin43\</code>.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-label">Install the font — required</div>
+          <div class="step-detail">
+            Find <code style="font-size:0.85em; background:var(--surface-2); padding:0.1rem 0.35rem; border-radius:4px;">Tab.ttf</code> in the TABwin43 folder.
+            Right-click it and choose <em>Install</em>. Without this font, tabs will not display correctly.
+          </div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-label">Create a desktop shortcut (optional)</div>
+          <div class="step-detail">Right-click <code style="font-size:0.85em; background:var(--surface-2); padding:0.1rem 0.35rem; border-radius:4px;">TABwin43.exe</code> → <em>Send to → Desktop (create shortcut)</em>.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-label">Check DirectX</div>
+          <div class="step-detail">TABrite requires DirectX. On Windows 10/11 this is already installed. If you see graphics errors, run <em>Windows Update</em> or install the <a href="https://www.microsoft.com/en-us/download/details.aspx?id=35" target="_blank" rel="noopener" style="color:var(--accent);">DirectX End-User Runtime</a>.</div>
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout callout-info" style="margin-top:1.25rem;">
+      <span>ℹ️</span>
+      <span>On Windows 10 or 11, if a SmartScreen warning appears when running the installer, click <strong>More info → Run anyway</strong>. TABrite predates modern code-signing but is safe.</span>
+    </div>
+  </section>
+
+  <!-- ── OPENING A FILE ── -->
+  <section class="card">
+    <h2 class="card-title">🎵 Opening a Tab File</h2>
+    <ol class="steps">
+      <li class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-label">Download a tab from the tabs page</div>
+          <div class="step-detail">Each song on <a href="index.html" style="color:var(--accent);">the tablatures page</a> links to a <code style="font-size:0.85em; background:var(--surface-2); padding:0.1rem 0.35rem; border-radius:4px;">.zip</code> file. Download and extract it — inside you'll find a <code style="font-size:0.85em; background:var(--surface-2); padding:0.1rem 0.35rem; border-radius:4px;">.bjo</code> file.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-label">Open TABrite</div>
+          <div class="step-detail">Launch TABrite from your desktop shortcut or Start menu.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-label">Open the file</div>
+          <div class="step-detail">Go to <strong>File → Open</strong> and navigate to the extracted <code style="font-size:0.85em; background:var(--surface-2); padding:0.1rem 0.35rem; border-radius:4px;">.bjo</code> file. The tablature will display immediately.</div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-label">Play the MIDI (optional)</div>
+          <div class="step-detail">Many tabs include a separate <code style="font-size:0.85em; background:var(--surface-2); padding:0.1rem 0.35rem; border-radius:4px;">.mid</code> MIDI file you can play alongside the tab to hear the melody or the missing harmony part.</div>
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout callout-tip" style="margin-top:1.25rem;">
+      <span>💡</span>
+      <span>Use <strong>File → Print</strong> inside TABrite to print a clean copy of any tablature. The Tab.ttf font ensures the banjo notation prints correctly.</span>
+    </div>
+  </section>
+
+  <!-- ── ALTERNATIVES ── -->
+  <section class="card" id="alternatives">
+    <h2 class="card-title">🔄 Modern Alternatives</h2>
+    <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:0.25rem;">
+      TABrite is no longer maintained and does not run on macOS. These actively-developed tools
+      are worth considering, especially if you're on Mac or want more features.
+    </p>
+
+    <hr class="divider">
+
+    <div class="alt-grid">
+
+      <div class="alt-card">
+        <div class="alt-name">TablEdit</div>
+        <div class="alt-desc">The most popular banjo tab editor today. Reads .bjo files directly — the best drop-in replacement for TABrite.</div>
+        <div class="alt-badges">
+          <span class="mini-badge mini-trial">Free trial</span>
+          <span class="mini-badge mini-win">Windows</span>
+          <span class="mini-badge mini-mac">Mac</span>
+          <span class="mini-badge mini-bjo">Opens .bjo</span>
+        </div>
+        <a href="https://tabledit.com" class="alt-link" target="_blank" rel="noopener">tabledit.com →</a>
+      </div>
+
+      <div class="alt-card">
+        <div class="alt-name">TuxGuitar</div>
+        <div class="alt-desc">Free, open-source tab editor with MIDI playback. Cross-platform and actively developed.</div>
+        <div class="alt-badges">
+          <span class="mini-badge mini-free">Free</span>
+          <span class="mini-badge mini-win">Windows</span>
+          <span class="mini-badge mini-mac">Mac</span>
+          <span class="mini-badge mini-linux">Linux</span>
+        </div>
+        <a href="https://tuxguitar.app" class="alt-link" target="_blank" rel="noopener">tuxguitar.app →</a>
+      </div>
+
+      <div class="alt-card">
+        <div class="alt-name">MuseScore 4</div>
+        <div class="alt-desc">Full-featured free notation software. Great for printing and sharing scores.</div>
+        <div class="alt-badges">
+          <span class="mini-badge mini-free">Free</span>
+          <span class="mini-badge mini-win">Windows</span>
+          <span class="mini-badge mini-mac">Mac</span>
+          <span class="mini-badge mini-linux">Linux</span>
+        </div>
+        <a href="https://musescore.org" class="alt-link" target="_blank" rel="noopener">musescore.org →</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-nav" aria-label="Site navigation">
+      <a href="index.html">All Tablatures</a>
+      <a href="bluetabs.html">Banjo Tabs</a>
+      <a href="mainindx.html">Site Index</a>
+      <a href="software.html">Must-Have Utilities</a>
+    </nav>
+    <p class="footer-copy">Tablatures by Tony Arcaro &mdash; for personal use.</p>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const saved = localStorage.getItem('theme');
+  const sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  const apply = t => { html.setAttribute('data-theme', t); btn.textContent = t === 'dark' ? '☀️' : '🌙'; };
+  apply(saved || sys);
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    apply(next);
+  });
+</script>
+
+</body>
+</html>
