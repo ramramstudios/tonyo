@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablatures by Tony Arcaro — Banjo Tabs & Bluegrass</title>
+  <meta name="description" content="Banjo tablatures, bluegrass information, Irish tunes, jazz, classical arrangements, and banjo lessons by Tony Arcaro (Tony O').">
+  <meta name="keywords" content="banjo, bluegrass, jazz, tabs, tablatures, Tony Arcaro, Irish, classical, old time">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #faf6ef;
+      --surface:     #ffffff;
+      --surface-2:   #f5efe3;
+      --border:      #e0cfa8;
+      --accent:      #b8720a;
+      --accent-dim:  #ffeecb;
+      --text:        #1e150a;
+      --text-muted:  #6b5a3e;
+      --classical:   #6b4f8e;
+      --irish:       #2d7a4f;
+      --oldtime:     #8e5a2d;
+      --jazz:        #1a5c8e;
+      --christmas:   #b52a2a;
+      --classic:     #4a7a6b;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:   0 4px 16px rgba(0,0,0,.1),  0 2px 4px rgba(0,0,0,.06);
+      --radius:      14px;
+      --radius-sm:   8px;
+      --ease:        0.18s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg:         #17100a;
+      --surface:    #221608;
+      --surface-2:  #2e1f0d;
+      --border:     #4a3820;
+      --accent:     #e8a040;
+      --accent-dim: #3d2a0a;
+      --text:       #f0e0c0;
+      --text-muted: #a08860;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.35);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.45);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background var(--ease), color var(--ease);
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+    }
+
+    .header-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+
+    .site-branding { flex: 1; min-width: 200px; }
+
+    .site-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem; font-weight: 800;
+      color: var(--accent); line-height: 1.2;
+    }
+
+    .site-tagline {
+      font-size: 0.72rem; color: var(--text-muted);
+      letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 0.6rem; }
+
+    .email-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.42rem 1rem;
+      border-radius: 9999px;
+      background: var(--accent); color: #fff;
+      font-size: 0.78rem; font-weight: 600;
+      text-decoration: none;
+      transition: opacity var(--ease), transform var(--ease);
+    }
+    .email-btn:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    .theme-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--text);
+      cursor: pointer; font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--ease);
+    }
+    .theme-btn:hover { background: var(--surface-2); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--accent-dim) 0%, var(--bg) 65%);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      font-weight: 800; color: var(--accent);
+      line-height: 1.15; margin-bottom: 0.75rem;
+    }
+
+    .hero p { font-size: 0.95rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
+
+    /* ── MAIN ── */
+    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+    /* ── NOTICE ── */
+    .notice {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      background: var(--accent-dim);
+      border: 1.5px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.875rem;
+    }
+    .notice a { color: var(--accent); font-weight: 600; }
+
+    /* ── SOFTWARE CARD ── */
+    .software-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 2.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .software-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; margin-bottom: 0.4rem;
+    }
+
+    .software-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; }
+
+    .dl-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.82rem; font-weight: 500;
+      text-decoration: none;
+      transition: background var(--ease), transform var(--ease);
+    }
+    .dl-btn:hover { background: var(--border); transform: translateY(-1px); }
+
+    .badge-free {
+      font-size: 0.65rem; background: #16a34a; color: #fff;
+      padding: 0.1rem 0.45rem; border-radius: 4px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    /* ── CONTROLS ── */
+    .controls {
+      display: flex; gap: 0.9rem; align-items: center;
+      flex-wrap: wrap; margin-bottom: 1.75rem;
+    }
+
+    .search-wrap { flex: 1; min-width: 200px; position: relative; }
+
+    .search-input {
+      width: 100%;
+      padding: 0.62rem 1rem 0.62rem 2.4rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--text);
+      font-size: 0.875rem; font-family: inherit;
+      outline: none;
+      transition: border-color var(--ease);
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .search-input::placeholder { color: var(--text-muted); }
+
+    .search-icon {
+      position: absolute; left: 0.82rem; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted); font-size: 0.85rem; pointer-events: none;
+    }
+
+    .chips { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+
+    .chip {
+      padding: 0.38rem 0.85rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--text-muted);
+      font-size: 0.78rem; font-weight: 500;
+      cursor: pointer;
+      transition: all var(--ease);
+    }
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+    .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── SECTION HEADER ── */
+    .section-head {
+      display: flex; align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.1rem;
+    }
+
+    .section-head h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.5rem;
+    }
+
+    .count-label { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ── GRID ── */
+    .song-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    /* ── SONG CARD ── */
+    .song-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.3rem;
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: 0.7rem;
+      transition: box-shadow var(--ease), transform var(--ease), border-color var(--ease);
+    }
+    .song-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    }
+    .song-card.hidden { display: none; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+
+    .song-title { font-size: 0.97rem; font-weight: 600; line-height: 1.35; }
+
+    .tags { display: flex; gap: 0.3rem; flex-wrap: wrap; flex-shrink: 0; }
+
+    .tag {
+      font-size: 0.64rem; font-weight: 700;
+      padding: 0.18rem 0.5rem; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      color: #fff; white-space: nowrap;
+    }
+    .tag-classical  { background: var(--classical); }
+    .tag-irish      { background: var(--irish); }
+    .tag-old-time   { background: var(--oldtime); }
+    .tag-jazz       { background: var(--jazz); }
+    .tag-christmas  { background: var(--christmas); }
+    .tag-classic    { background: var(--classic); }
+
+    .song-desc {
+      font-size: 0.83rem; color: var(--text-muted); line-height: 1.55; flex: 1;
+    }
+
+    .card-actions {
+      display: flex; gap: 0.45rem; flex-wrap: wrap;
+      padding-top: 0.6rem; border-top: 1px solid var(--border);
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.4rem 0.8rem; border-radius: var(--radius-sm);
+      font-size: 0.78rem; font-weight: 500; font-family: inherit;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all var(--ease);
+    }
+    .btn-primary  { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: 0.83; }
+    .btn-secondary { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); }
+    .btn-secondary:hover { background: var(--border); }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+    .btn-ghost:hover { background: var(--surface-2); color: var(--text); }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      display: none; text-align: center;
+      grid-column: 1/-1; padding: 3rem 1rem; color: var(--text-muted);
+    }
+    .empty.show { display: block; }
+    .empty p { font-size: 1.05rem; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+    }
+
+    .footer-inner { max-width: 1120px; margin: 0 auto; }
+
+    .footer-nav {
+      display: flex; gap: 0.65rem; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 1.1rem;
+    }
+
+    .footer-nav a {
+      padding: 0.48rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; transition: background var(--ease);
+    }
+    .footer-nav a:hover { background: var(--border); }
+
+    .footer-copy { text-align: center; font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 2.5rem 1rem 2rem; }
+      .controls { flex-direction: column; align-items: stretch; }
+      .song-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-branding">
+      <div class="site-name">Tablatures by Tony Arcaro</div>
+      <div class="site-tagline">Banjo Tabs &amp; Bluegrass Information</div>
+    </div>
+    <div class="header-actions">
+      <a href="mailto:lindatony@email.msn.com" class="email-btn">✉ Email Tony O'</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <h1>Banjo Tablatures<br>&amp; Bluegrass</h1>
+  <p>Banjo tablatures, Irish tunes, jazz, classical arrangements, and banjo lessons by Tony Arcaro (Tony O'). All tabs include MIDI files.</p>
+</section>
+
+<main>
+
+  <!-- ── NOTICE ── -->
+  <div class="notice" role="note">
+    <span>📌</span>
+    <span><strong>TABrite viewer required.</strong> Tabs are in TABrite (.bjo) format inside ZIP files. <a href="howto.html">Click here to learn how to open them.</a></span>
+  </div>
+
+  <!-- ── SOFTWARE ── -->
+  <section class="software-card">
+    <h2>⬇ Free TABrite Viewer</h2>
+    <p>Download the free TABrite file viewer and printer to open any tab on this site.</p>
+    <div class="dl-row">
+      <a href="http://bluegrassbanjo.org/tabview.zip" class="dl-btn">
+        <span class="badge-free">Free</span> 🖥 TABrite for PC
+      </a>
+      <a href="tabview.sit" class="dl-btn">
+        <span class="badge-free">Free</span> 🍎 TABrite for Mac
+      </a>
+    </div>
+  </section>
+
+  <!-- ── CONTROLS ── -->
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="search" class="search-input" id="searchInput"
+             placeholder="Search tablatures…" aria-label="Search tablatures">
+    </div>
+    <div class="chips" role="group" aria-label="Filter by genre">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="classical">Classical</button>
+      <button class="chip" data-filter="irish">Irish</button>
+      <button class="chip" data-filter="old-time">Old Time</button>
+      <button class="chip" data-filter="jazz">Jazz</button>
+      <button class="chip" data-filter="christmas">Christmas</button>
+      <button class="chip" data-filter="classic">Classic Banjo</button>
+    </div>
+  </div>
+
+  <!-- ── LIST HEADER ── -->
+  <div class="section-head">
+    <h2>Tablatures</h2>
+    <span class="count-label" id="countLabel"></span>
+  </div>
+
+  <!-- ── SONG GRID ── -->
+  <div class="song-grid" id="songGrid">
+
+    <div class="song-card" data-genres="classical">
+      <div class="card-top">
+        <h3 class="song-title">Bach's 2nd Brandenburg Concerto — Melody</h3>
+        <div class="tags"><span class="tag tag-classical">Classical</span></div>
+      </div>
+      <p class="song-desc">1st movement, melody banjo arrangement of Bach's famous concerto.</p>
+      <div class="card-actions">
+        <a href="brand211.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="brand211.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="classical">
+      <div class="card-top">
+        <h3 class="song-title">Bach's 2nd Brandenburg Concerto — Harmony</h3>
+        <div class="tags"><span class="tag tag-classical">Classical</span></div>
+      </div>
+      <p class="song-desc">1st movement, harmony banjo part to accompany the melody version.</p>
+      <div class="card-actions">
+        <a href="brand212.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="brand212.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="classical">
+      <div class="card-top">
+        <h3 class="song-title">Bach Minuet 1 &amp; Minuet 2</h3>
+        <div class="tags"><span class="tag tag-classical">Classical</span></div>
+      </div>
+      <p class="song-desc">A fun duet — first banjo plays the right piano hand, second plays the left. Use the MIDI to fill in the missing part.</p>
+      <div class="card-actions">
+        <a href="bachmnu1.zip" class="btn btn-primary">⬇ Minuet 1</a>
+        <a href="bachmnu2.zip" class="btn btn-secondary">⬇ Minuet 2</a>
+        <a href="bachmnu1.mid" class="btn btn-ghost">♪ MIDI 1</a>
+        <a href="bachmnu2.mid" class="btn btn-ghost">♪ MIDI 2</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="classic">
+      <div class="card-top">
+        <h3 class="song-title">Banjoland</h3>
+        <div class="tags"><span class="tag tag-classic">Classic Banjo</span></div>
+      </div>
+      <p class="song-desc">A classic banjo tune by Joe Morley, tabbed from the sheet music.</p>
+      <div class="card-actions">
+        <a href="banjolnd.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="banjoln2.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="classic">
+      <div class="card-top">
+        <h3 class="song-title">Berkeley March</h3>
+        <div class="tags"><span class="tag tag-classic">Classic Banjo</span></div>
+      </div>
+      <p class="song-desc">Drop C tuning.</p>
+      <div class="card-actions">
+        <a href="berkly.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="berkly.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="classical">
+      <div class="card-top">
+        <h3 class="song-title">Bransle</h3>
+        <div class="tags"><span class="tag tag-classical">Classical</span></div>
+      </div>
+      <p class="song-desc">A Renaissance tune by Susato — Tony first heard it played on a recorder and fell for it.</p>
+      <div class="card-actions">
+        <a href="bransle.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="bransle.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Bridget Cruise</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">A beautiful air by O'Carolan. Goes really well with The Coolin.</p>
+      <div class="card-actions">
+        <a href="bridget.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="bridget.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Carolan's Concerto</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">An "Italian Baroque" style piece by the blind Irish harpist Turlough O'Carolan — one of Tony's personal favorites.</p>
+      <div class="card-actions">
+        <a href="c_cncrto.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="c_cncrto.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Carolan's Dream</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">A slow lament in a minor key.</p>
+      <div class="card-actions">
+        <a href="c_farwel.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="c_farwel.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Carolan's Quarrel with the Landlady</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">Taken from Derek Bell's harp version, played in medley form with Carolan's Ramble to Cashel.</p>
+      <div class="card-actions">
+        <a href="c_quarel.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="c_quarel.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Carolan's Ramble to Cashel</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">Taken from Derek Bell's harp version, played in medley form with Carolan's Quarrel with the Landlady.</p>
+      <div class="card-actions">
+        <a href="c_ramble.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="c_ramble.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Chase Me Charlie</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <div class="card-actions">
+        <a href="chase_me.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="chase_me.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="classic">
+      <div class="card-top">
+        <h3 class="song-title">Dance California</h3>
+        <div class="tags"><span class="tag tag-classic">Classic Banjo</span></div>
+      </div>
+      <p class="song-desc">Drop C tuning.</p>
+      <div class="card-actions">
+        <a href="californ.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="californ.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="christmas classical">
+      <div class="card-top">
+        <h3 class="song-title">Dance of the Sugarplum Fairies</h3>
+        <div class="tags">
+          <span class="tag tag-classical">Classical</span>
+          <span class="tag tag-christmas">Christmas</span>
+        </div>
+      </div>
+      <p class="song-desc">Lovely chord solo by Tchaikovsky from the Nutcracker ballet — a seasonal favorite.</p>
+      <div class="card-actions">
+        <a href="sugarplm.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="sugarplm.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish old-time">
+      <div class="card-top">
+        <h3 class="song-title">George Brabazon</h3>
+        <div class="tags">
+          <span class="tag tag-irish">Irish</span>
+          <span class="tag tag-old-time">Old Time</span>
+        </div>
+      </div>
+      <p class="song-desc">Played by old-time players in the key of G.</p>
+      <div class="card-actions">
+        <a href="geobrab.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="geobrab.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Harvest Home</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">Goes well with The Boys of Bluehill.</p>
+      <div class="card-actions">
+        <a href="harvest.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="harvest.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Haste to the Wedding</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">Goes well with Paddy's Return in a medley.</p>
+      <div class="card-actions">
+        <a href="hastewed.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="hastewed.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="old-time">
+      <div class="card-top">
+        <h3 class="song-title">Lisa's Medley 1 &amp; 2</h3>
+        <div class="tags"><span class="tag tag-old-time">Old Time</span></div>
+      </div>
+      <p class="song-desc">A melody and harmony medley Tony put together for a favorite student — The Eighth of January, Liberty, and The Rakes of Mallow.</p>
+      <div class="card-actions">
+        <a href="lisamed1.zip" class="btn btn-primary">⬇ Medley 1</a>
+        <a href="lisamed2.zip" class="btn btn-secondary">⬇ Medley 2</a>
+        <a href="lisamed1.mid" class="btn btn-ghost">♪ MIDI 1</a>
+        <a href="lisamed2.mid" class="btn btn-ghost">♪ MIDI 2</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Merrily Kiss the Quaker</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <div class="card-actions">
+        <a href="merrily.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="merrily.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="classical">
+      <div class="card-top">
+        <h3 class="song-title">Minuet in G</h3>
+        <div class="tags"><span class="tag tag-classical">Classical</span></div>
+      </div>
+      <p class="song-desc">A very recognizable and playable tune by Beethoven.</p>
+      <div class="card-actions">
+        <a href="minuetg.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="minuetg.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Nine Points to Roguery</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">Goes well with Trip to Durrow.</p>
+      <div class="card-actions">
+        <a href="9points.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="9_points.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="old-time">
+      <div class="card-top">
+        <h3 class="song-title">Off to California</h3>
+        <div class="tags"><span class="tag tag-old-time">Old Time</span></div>
+      </div>
+      <div class="card-actions">
+        <a href="offtocal.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="offtocal.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="old-time">
+      <div class="card-top">
+        <h3 class="song-title">Over the Waterfall</h3>
+        <div class="tags"><span class="tag tag-old-time">Old Time</span></div>
+      </div>
+      <p class="song-desc">3-finger style.</p>
+      <div class="card-actions">
+        <a href="waterfal.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="waterfal.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Paddy's Return</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">Works well with Haste to the Wedding in a medley.</p>
+      <div class="card-actions">
+        <a href="padyrtrn.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="padyrtrn.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="old-time">
+      <div class="card-top">
+        <h3 class="song-title">Ragtime Annie</h3>
+        <div class="tags"><span class="tag tag-old-time">Old Time</span></div>
+      </div>
+      <p class="song-desc">3-finger style.</p>
+      <div class="card-actions">
+        <a href="ragannie.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="raganni2.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="christmas">
+      <div class="card-top">
+        <h3 class="song-title">Silent Night</h3>
+        <div class="tags"><span class="tag tag-christmas">Christmas</span></div>
+      </div>
+      <p class="song-desc">A chord solo using "fat" chords, played with expression in Drop C or classic banjo tuning.</p>
+      <div class="card-actions">
+        <a href="silent.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="silent.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="jazz">
+      <div class="card-top">
+        <h3 class="song-title">Someone to Watch Over Me</h3>
+        <div class="tags"><span class="tag tag-jazz">Jazz</span></div>
+      </div>
+      <p class="song-desc">A beautiful Gershwin tune set to banjo.</p>
+      <div class="card-actions">
+        <a href="someone.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="someone.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">The Boys of Bluehill</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">A hornpipe played at Irish sessions. Goes well with Harvest Home.</p>
+      <div class="card-actions">
+        <a href="bluehill.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="bluehill.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">The Coolin</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">A beautiful, very old air. Goes really well with Bridget Cruise.</p>
+      <div class="card-actions">
+        <a href="coolin.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="coolin.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">The Road to Lisdoonvarna</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">A driving jig in a minor key.</p>
+      <div class="card-actions">
+        <a href="lsdnvrn2.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="lsdnvrna.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">The Snowy Path</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">A slip jig in 9/8 time — a beautiful tune.</p>
+      <div class="card-actions">
+        <a href="snowpath.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="snowpath.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="song-card" data-genres="irish">
+      <div class="card-top">
+        <h3 class="song-title">Trip to Durrow</h3>
+        <div class="tags"><span class="tag tag-irish">Irish</span></div>
+      </div>
+      <p class="song-desc">Goes well with Nine Points to Roguery.</p>
+      <div class="card-actions">
+        <a href="tripduro.zip" class="btn btn-primary">⬇ Tab</a>
+        <a href="tripduro.mid" class="btn btn-ghost">♪ MIDI</a>
+      </div>
+    </div>
+
+    <div class="empty" id="emptyState">
+      <p>No tablatures match your search.</p>
+    </div>
+
+  </div><!-- /song-grid -->
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-nav" aria-label="Site navigation">
+      <a href="bluetabs.html">Banjo Tabs</a>
+      <a href="mainindx.html">Site Index</a>
+      <a href="software.html">Must-Have Utilities</a>
+      <a href="mailto:lindatony@email.msn.com">Email Tony</a>
+    </nav>
+    <p class="footer-copy">Tablatures by Tony Arcaro &mdash; for personal use.</p>
+  </div>
+</footer>
+
+<script>
+  // ── THEME ──
+  const html = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const saved = localStorage.getItem('theme');
+  const sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  const apply = (t) => {
+    html.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  };
+  apply(saved || sys);
+  themeBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    apply(next);
+  });
+
+  // ── FILTER & SEARCH ──
+  const cards = Array.from(document.querySelectorAll('.song-card'));
+  const chips = Array.from(document.querySelectorAll('.chip'));
+  const searchInput = document.getElementById('searchInput');
+  const emptyState = document.getElementById('emptyState');
+  const countLabel = document.getElementById('countLabel');
+  let activeFilter = 'all';
+
+  function refresh() {
+    const q = searchInput.value.toLowerCase().trim();
+    let n = 0;
+    cards.forEach(card => {
+      const genres = (card.dataset.genres || '').split(' ');
+      const text = card.textContent.toLowerCase();
+      const matchGenre = activeFilter === 'all' || genres.includes(activeFilter);
+      const matchSearch = !q || text.includes(q);
+      const show = matchGenre && matchSearch;
+      card.classList.toggle('hidden', !show);
+      if (show) n++;
+    });
+    emptyState.classList.toggle('show', n === 0);
+    countLabel.textContent = `${n} of ${cards.length}`;
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.filter;
+      refresh();
+    });
+  });
+
+  searchInput.addEventListener('input', refresh);
+  refresh();
+</script>
+
+</body>
+</html>
